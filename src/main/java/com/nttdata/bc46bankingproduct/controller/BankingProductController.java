@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Ntt Data - Top Employer 2023.
+ * Todos los derechos Reservados.
+ */
 @RestController
 @RequestMapping("/api")
 @Slf4j
@@ -20,7 +24,7 @@ public class BankingProductController {
   private BankingProductService bankingProductService;
 
   /**
-   * Consultar todos los tipos de productos bancarios del maestro
+   * Consultar todos los tipos de productos bancarios del maestro.
    **/
   @GetMapping("/findAll")
   public Flux<BankingProduct> findAll() {
@@ -30,7 +34,7 @@ public class BankingProductController {
   }
 
   /**
-   * Consultar por Id de producto
+   * Consultar por Id de producto.
    **/
   @GetMapping("/findById/{id}")
   public Mono<ResponseEntity<BankingProduct>> findById(@PathVariable("id") String id) {
@@ -42,7 +46,7 @@ public class BankingProductController {
   }
 
   /**
-   * Crear un tipo de producto bancario
+   * Crear un tipo de producto bancario.
    **/
   @PostMapping("/saveProduct")
   public Mono<ResponseEntity<BankingProduct>> save(@RequestBody BankingProduct bankingProduct) {
@@ -54,7 +58,7 @@ public class BankingProductController {
   }
 
   /**
-   * Actualizar un tipo de productos bancario del maestro
+   * Actualizar un tipo de productos bancario del maestro.
    **/
   @PutMapping("/updateProduct/{idProduct}")
   public Mono<ResponseEntity<BankingProduct>> update(@RequestBody BankingProduct bankingProduct,
@@ -66,7 +70,7 @@ public class BankingProductController {
   }
 
   /**
-   * Eliminar un tipo de productos bancario del maestro
+   * Eliminar un tipo de productos bancario del maestro.
    **/
   @DeleteMapping("/deleteProduct/{idProduct}")
   public Mono<ResponseEntity<Void>> deleteProduct(@PathVariable("idProduct") String idProduct) {

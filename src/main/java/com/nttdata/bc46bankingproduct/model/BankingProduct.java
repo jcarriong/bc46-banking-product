@@ -1,9 +1,17 @@
 package com.nttdata.bc46bankingproduct.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Ntt Data - Top Employer 2023.
+ * Todos los derechos Reservados.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
