@@ -46,7 +46,7 @@ public class BankingProductController {
   }
 
   /**
-   * Crear un tipo de producto bancario.
+   * Crear un tipo de producto que ofrece el banco: Pasivos (cuentas bancarias) o activos (créditos)
    **/
   @PostMapping("/saveProduct")
   public Mono<ResponseEntity<BankingProduct>> save(@RequestBody BankingProduct bankingProduct) {
@@ -54,7 +54,7 @@ public class BankingProductController {
     bankingProduct.setCreationDatetime(LocalDateTime.now());
     return bankingProductService.save(bankingProduct)
         .map(bc -> new ResponseEntity<>(bc, HttpStatus.CREATED))
-        .defaultIfEmpty(new ResponseEntity<>(HttpStatus.CONFLICT));
+        .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 
   /**

@@ -30,19 +30,33 @@ public class BankingProductImpl implements BankingProductService {
 
   @Override
   public Mono<BankingProduct> save(BankingProduct bankingProduct) {
-    return bankingProductRepository.save(bankingProduct);
+    return generateCustomId()
+        .flatMap(customId -> {
+          bankingProduct.setIdProduct(customId);
+          return bankingProductRepository.save(bankingProduct); // Agrega la clase BankingProduct como argumento
+        });
+  }
+
+  private Mono<String> generateCustomId() {
+    return bankingProductRepository.count() // Contar la cantidad actual de documentos
+        .map(count -> {
+          int nextNumber = count.intValue() +1;
+          return "P" + String.format("%03d", nextNumber);
+        })
+        .defaultIfEmpty("P001"); // Si no hay documentos, comenzar desde P001
   }
 
   @Override
   public Mono<BankingProduct> updateProduct(BankingProduct bankingProduct, String idProduct) {
     return bankingProductRepository.findById(idProduct)
         .flatMap(currentProduct -> {
-          currentProduct.setProductTypeCode(bankingProduct.getProductTypeCode());
+          currentProduct.setProductType(bankingProduct.getProductType());
           currentProduct.setProductCategory(bankingProduct.getProductCategory());
           currentProduct.setProductName(bankingProduct.getProductName());
-          currentProduct.setMaintenance(bankingProduct.getMaintenance());
-          currentProduct.setMovementLimit(bankingProduct.getMovementLimit());
-          currentProduct.setTransactionFee(bankingProduct.getTransactionFee());
+          currentProduct.setHasMaintenanceFee(bankingProduct.getHasMaintenanceFee());
+          currentProduct.setHasUnlimitedMovements(bankingProduct.getHasUnlimitedMovements());
+          currentProduct.setMaxCreditsByType(bankingProduct.getMaxCreditsByType());
+          currentProduct.setDescription(bankingProduct.getDescription());
           currentProduct.setUpdateDatetime(LocalDateTime.now());
           return bankingProductRepository.save(currentProduct);
         });
